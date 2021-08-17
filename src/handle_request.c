@@ -18,6 +18,10 @@ static int	get_method(struct mg_http_message *req)
 		return (DELETE);
 	else if (!mg_ncasecmp("GET", req->method.ptr, req->method.len))
 		return (GET);
+	else if (!mg_ncasecmp("HEAD", req->method.ptr, req->method.len))
+		return (HEAD);
+	else if (!mg_ncasecmp("OPTIONS", req->method.ptr, req->method.len))
+		return (OPTIONS);
 	else if (!mg_ncasecmp("PATCH", req->method.ptr, req->method.len))
 		return (PATCH);
 	else if (!mg_ncasecmp("POST", req->method.ptr, req->method.len))

@@ -30,6 +30,8 @@ enum e_methods
 {
 	DELETE,
 	GET,
+	HEAD,
+	OPTIONS,
 	PATCH,
 	POST,
 	PUT,
