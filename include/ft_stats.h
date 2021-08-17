@@ -15,8 +15,6 @@
 
 # include "mongoose.h"
 
-extern const char	*g_listening_address;
-
 /* Callback for `mg_mgr_poll`. The base of the API.
  * @param c struct mg_connection *: connection
  * @param ev int: event type

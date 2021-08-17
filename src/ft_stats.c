@@ -12,14 +12,14 @@
 
 #include "ft_stats.h"
 
-const char	*g_listening_address = "http://localhost:8000";
+static const char	*g_listening_address = "http://localhost:8000";
 
 int	main(void)
 {
 	struct mg_mgr		mgr;
 
 	mg_mgr_init(&mgr);
-	mg_http_listen(&mgr, g_listening_address, callback, &mgr);
+	mg_http_listen(&mgr, g_listening_address, callback, NULL);
 	while (1)
 		mg_mgr_poll(&mgr, 1000);
 	mg_mgr_free(&mgr);
