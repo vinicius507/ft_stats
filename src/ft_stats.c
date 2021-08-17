@@ -12,16 +12,25 @@
 
 #include "ft_stats.h"
 
-static const char	*g_listening_address = "http://localhost:8000";
+static void	echo(struct mg_connection *c, struct mg_http_message *req)
+{
+	mg_http_reply(c, 200, "", "{ \"foo\": \"%s\" }\n", "bar");
+	(void)req;
+}
+
+static void	redirect(struct mg_connection *c, struct mg_http_message *req)
+{
+	mg_http_reply(c, 308, "location: /api/v1\r\n", "");
+	(void)req;
+}
 
 int	main(void)
 {
-	struct mg_mgr		mgr;
+	struct s_api	ft_stats;
 
-	mg_mgr_init(&mgr);
-	mg_http_listen(&mgr, g_listening_address, callback, NULL);
-	while (1)
-		mg_mgr_poll(&mgr, 1000);
-	mg_mgr_free(&mgr);
+	api_init(&ft_stats);
+	register_route(GET, API_V1, echo, &ft_stats);
+	register_route(GET, API_V1_, redirect, &ft_stats);
+	api_do(&ft_stats);
 	return (0);
 }
