@@ -20,7 +20,8 @@ void	callback(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 	hm = (struct mg_http_message *)ev_data;
 	if (ev == MG_EV_HTTP_MSG)
 	{
-		if (mg_http_match_uri(hm, "/api/v1"))
+		if (mg_http_match_uri(hm, "/api/v1")
+			&& mg_ncasecmp(hm->method.ptr, "GET", hm->method.len) == 0)
 			mg_http_reply(c, 200, "", "{\"result\": %d}\n", 123);
 		else if (mg_http_match_uri(hm, "/api/v1/*"))
 			mg_http_reply(c, 200, "", "{\"result\": \"%s\"}\n", "Test");
