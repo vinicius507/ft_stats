@@ -20,10 +20,10 @@ static void	redirect(struct mg_connection *c, struct mg_http_message *req)
 
 int	main(void)
 {
-	struct s_api	ft_stats;
+	struct s_api	api;
 
-	api_init(&ft_stats);
-	register_route(GET, API_V1_, redirect, &ft_stats);
-	api_do(&ft_stats);
+	api_init(&api);
+	register_route(GET, API_V1_, redirect, &api);
+	api_do(&api);
 	return (0);
 }
