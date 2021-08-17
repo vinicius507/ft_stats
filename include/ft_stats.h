@@ -15,11 +15,46 @@
 
 # include "mongoose.h"
 
-/* Callback for `mg_mgr_poll`. The base of the API.
- * @param c struct mg_connection *: connection
- * @param ev int: event type
- * @param ev_data void *: event data
- * @param fn_data void*: arbitrary pointer */
-void	callback(struct mg_connection *c, int ev, void *ev_data, void *fn_data);
+/* API Routes for better performance.
+ * `ROUTES` serves for declaring the routes array. */
+enum e_routes
+{
+	API_V1,
+	API_V1_,
+	ROUTES,
+};
+
+/* HTTP Request Methods.
+ * `METHODS` serves for declaring the callbacks array. */
+enum e_methods
+{
+	DELETE,
+	GET,
+	PATCH,
+	POST,
+	PUT,
+	METHODS,
+};
+
+struct s_api
+{
+	 void			(*routes[ROUTES][METHODS])();
+	 struct mg_mgr	mgr;
+};
+
+/* Initializes the API data structure. */
+void	api_init(struct s_api *api);
+
+/* Register a route in the API. */
+void	register_route(int method, int id, void (*cb)(), struct s_api *api);
+
+/* Gets `e_route route_id`. */
+int		get_route_id(struct mg_http_message *hm);
+
+/* Handles Requests. */
+void	handle_request(struct mg_connection *c, struct mg_http_message *req);
+
+/* Starts `mg_mgr` and starts listening to requests. */
+void	api_do(struct s_api *api);
 
 #endif

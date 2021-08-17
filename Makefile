@@ -1,15 +1,15 @@
 NAME = ft_stats
 CC = clang
-# CFLAGS = -Wall -Wextra -Werror -pg
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_DIR = ./src
 BUILD_DIR = ./build
 INCLUDES_DIR = ./include ./mongoose
 
-INCLUDES := $(addprefix -I,$(INCLUDES_DIR))
-SRCS = ft_stats.c callback.c
+SRCS = ft_stats.c routes.c api.c handle_request.c
 OBJS := $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
+INCLUDES := $(addprefix -I,$(INCLUDES_DIR))
 
 MONGOOSE = ./mongoose/mongoose.c
 
