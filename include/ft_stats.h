@@ -59,4 +59,7 @@ void	handle_request(struct mg_connection *c, struct mg_http_message *req);
 /* Starts `mg_mgr` and starts listening to requests. */
 void	api_do(struct s_api *api);
 
+/* Redirects to `/api/v1`. */
+void	redirect(struct mg_connection *c, struct mg_http_message *req);
+
 #endif

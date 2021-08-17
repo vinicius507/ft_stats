@@ -6,7 +6,7 @@ SRC_DIR = ./src
 BUILD_DIR = ./build
 INCLUDES_DIR = ./include ./mongoose
 
-SRCS = ft_stats.c routes.c api.c handle_request.c
+SRCS = ft_stats.c routes.c api.c handle_request.c redirect.c
 OBJS := $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
 INCLUDES := $(addprefix -I,$(INCLUDES_DIR))
