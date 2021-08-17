@@ -36,8 +36,12 @@ void	handle_request(struct mg_connection *c, struct mg_http_message *req)
 	method = get_method(req);
 	route_id = get_route_id(req);
 	api = (struct s_api *)c->fn_data;
-	if (method >= 0 && route_id >= 0 && api->routes[route_id][method])
-		api->routes[route_id][method](c, req);
-	else
+	if (method < 0)
+		mg_http_reply(c, 400, "", "");
+	else if (route_id < 0)
 		mg_http_reply(c, 404, "", "");
+	else if (api->routes[route_id][method] == NULL)
+		mg_http_reply(c, 405, "", "");
+	else
+		api->routes[route_id][method](c, req);
 }
