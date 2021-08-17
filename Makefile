@@ -7,7 +7,7 @@ BUILD_DIR = ./build
 INCLUDES_DIR = ./include ./mongoose
 
 INCLUDES := $(addprefix -I,$(INCLUDES_DIR))
-SRCS = ft_stats.c
+SRCS = ft_stats.c callback.c
 OBJS := $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
 

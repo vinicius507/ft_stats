@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stats.c                                         :+:      :+:    :+:   */
+/*   callback.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgocalv <vgocalv@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/16 21:27:19 by vgocalv           #+#    #+#             */
-/*   Updated: 2021/08/16 21:27:19 by vgocalv          ###   ########.fr       */
+/*   Created: 2021/08/16 22:52:36 by vgocalv           #+#    #+#             */
+/*   Updated: 2021/08/16 22:52:36 by vgocalv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stats.h"
 
-const char	*g_listening_address = "http://localhost:8000";
-
-int	main(void)
+void	callback(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 {
-	struct mg_mgr		mgr;
+	struct mg_http_message		*hm;
 
-	mg_mgr_init(&mgr);
-	mg_http_listen(&mgr, g_listening_address, callback, &mgr);
-	while (1)
-		mg_mgr_poll(&mgr, 1000);
-	mg_mgr_free(&mgr);
-	return (0);
+	(void)fn_data;
+	hm = (struct mg_http_message *)ev_data;
+	if (ev == MG_EV_HTTP_MSG)
+	{
+		if (mg_http_match_uri(hm, "/api/v1"))
+			mg_http_reply(c, 200, "", "{\"result\": %d}\n", 123);
+		else if (mg_http_match_uri(hm, "/api/v1/*"))
+			mg_http_reply(c, 200, "", "{\"result\": \"%s\"}\n", "Test");
+	}
 }

@@ -13,4 +13,15 @@
 #ifndef FT_STATS_H
 # define FT_STATS_H
 
+# include "mongoose.h"
+
+extern const char	*g_listening_address;
+
+/* Callback for `mg_mgr_poll`. The base of the API.
+ * @param c struct mg_connection *: connection
+ * @param ev int: event type
+ * @param ev_data void *: event data
+ * @param fn_data void*: arbitrary pointer */
+void	callback(struct mg_connection *c, int ev, void *ev_data, void *fn_data);
+
 #endif
