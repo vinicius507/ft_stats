@@ -1,0 +1,24 @@
+name: Norminette
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  norminette:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Pip Installer
+        uses: BSFishy/pip-action@v1
+        with:
+          packages: norminette
+          upgrade: true
+      - name: Check
+        run: norminette src include
