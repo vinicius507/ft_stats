@@ -15,12 +15,17 @@
 void	get_user_data(struct mg_connection *c, struct mg_http_message *req)
 {
 	struct s_api	*api;
+	char			*user;
 
 	api = (struct s_api *)c->fn_data;
 	auth_intra(api);
-	if (api->req.token[0])
-		mg_http_reply(c, 200, "", "");
-	else
+	if (api->req.access_token[0] == '\0')
+	{
 		mg_http_reply(c, 500, "", "");
-	(void)req;
+		return ;
+	}
+	user = strndup(req->uri.ptr + 8, req->uri.len - 8);
+	get_user_data_intra(api, user);
+	free(user);
+	mg_http_reply(c, 200, "", "");
 }
