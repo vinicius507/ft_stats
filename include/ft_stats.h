@@ -42,6 +42,7 @@ enum e_methods
 
 struct s_request
 {
+	int				done:1;
 	struct mg_str	host;
 	const char		*path;
 	char			token[65];

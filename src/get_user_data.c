@@ -18,6 +18,9 @@ void	get_user_data(struct mg_connection *c, struct mg_http_message *req)
 
 	api = (struct s_api *)c->fn_data;
 	auth_intra(api);
-	mg_http_reply(c, 200, "", "");
+	if (api->req.token[0])
+		mg_http_reply(c, 200, "", "");
+	else
+		mg_http_reply(c, 500, "", "");
 	(void)req;
 }

@@ -26,9 +26,12 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 	{
 		hm = (struct mg_http_message *)ev_data;
 		mjson_get_string(hm->body.ptr, hm->body.len,
-			"$.access_token", &api->req.token[0], 65);
+			 "$.access_token", &api->req.token[0], 65);
 		c->is_closing = 1;
+		api->req.done = 1;
 	}
+	else if (ev == MG_EV_ERROR)
+		api->req.done = 1;
 	(void)c;
 	(void)fn_data;
 }
@@ -40,4 +43,6 @@ void	auth_intra(struct s_api *api)
 	api->req.path = g_oauth_url;
 	api->req.host = mg_url_host(g_oauth_url);
 	c = mg_http_connect(&api->mgr, api->req.path, cb, api);
+	while (c && api->req.done == 0)
+		mg_mgr_poll(&api->mgr, 1000);
 }
