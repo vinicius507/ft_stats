@@ -21,7 +21,7 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 
 	api = (struct s_api *)c->fn_data;
 	if (ev == MG_EV_CONNECT)
-		get_token_intra(c, api);
+		request_token_intra(c, api);
 	else if (ev == MG_EV_HTTP_MSG)
 	{
 		hm = (struct mg_http_message *)ev_data;

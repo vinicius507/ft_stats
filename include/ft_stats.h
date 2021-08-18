@@ -73,7 +73,7 @@ void	api_do(struct s_api *api);
 void	redirect(struct mg_connection *c, struct mg_http_message *req);
 
 /* Gets OAuth token from École 42 api. */
-void	get_token_intra(struct mg_connection *c, struct s_api *api);
+void	request_token_intra(struct mg_connection *c, struct s_api *api);
 
 void	auth_intra(struct s_api *api);
 

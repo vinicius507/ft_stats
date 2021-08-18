@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_token_intra.c                                  :+:      :+:    :+:   */
+/*   request_token_intra.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgocalv <vgocalv@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "ft_stats.h"
 
-void	get_token_intra(struct mg_connection *c, struct s_api *api)
+void	request_token_intra(struct mg_connection *c, struct s_api *api)
 {
 	struct mg_tls_opts	opts;
 	extern const char	*g_oauth_url;
