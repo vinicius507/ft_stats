@@ -14,20 +14,12 @@
 
 void	request_token_intra(struct mg_connection *c, struct s_api *api)
 {
-	struct mg_tls_opts	opts;
-	extern const char	*g_oauth_url;
-
-	if (mg_url_is_ssl(g_oauth_url))
-	{
-		bzero(&opts, sizeof(opts));
-		opts.srvname = api->req.host;
-		mg_tls_init(c, &opts);
-	}
+	tls_init(c);
 	mg_printf(c,
 		"POST %s HTTP/1.0\r\n"
 		"Host: %.*s\r\n"
 		"Accept: */*\r\n",
-		mg_url_uri(g_oauth_url),
+		mg_url_uri(api->req.path),
 		(int)api->req.host.len,
 		api->req.host.ptr
 		);

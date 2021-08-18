@@ -12,7 +12,7 @@
 
 #include "ft_stats.h"
 
-const char	*g_oauth_url = "https://api.intra.42.fr/oauth/token";
+static const char	*g_oauth_url = "https://api.intra.42.fr/oauth/token";
 
 static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 {

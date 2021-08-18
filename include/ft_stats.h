@@ -41,7 +41,6 @@ enum e_methods
 
 struct s_request
 {
-	int				done;
 	struct mg_str	host;
 	struct mg_str	token;
 	const char		*path;
@@ -72,11 +71,16 @@ void	api_do(struct s_api *api);
 /* Redirects to `/api/v1`. */
 void	redirect(struct mg_connection *c, struct mg_http_message *req);
 
+/* Checks if path being requested is SSL and initialize TLS. */
+void	tls_init(struct mg_connection *c);
+
 /* Gets OAuth token from École 42 api. */
 void	request_token_intra(struct mg_connection *c, struct s_api *api);
 
+/* Authenticate at École 42 intranet. */
 void	auth_intra(struct s_api *api);
 
+/* Get user data. */
 void	get_user_data(struct mg_connection *c, struct mg_http_message *req);
 
 #endif
