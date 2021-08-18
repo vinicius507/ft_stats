@@ -2,12 +2,12 @@ NAME = ft_stats
 CC = clang
 CFLAGS = -Wall -Wextra -Werror -g -DMG_ENABLE_MBEDTLS=1
 
-MBEDTLS_DIR = /lib
+MBEDTLS_DIR = /usr/lib/x86_64-linux-gnu/lib
 LIBS = -L$(MBEDTLS_DIR) -lmbedtls -lmbedcrypto -lmbedx509
 
 SRC_DIR = ./src
 BUILD_DIR = ./build
-INCLUDES_DIR = ./include ./mongoose /usr/include/mbedtls
+INCLUDES_DIR = ./include ./mongoose /usr/lib/x86_64-linux-gnu/lib/include /usr/include
 
 SRCS = ft_stats.c routes.c api.c handle_request.c redirect.c \
 	   auth_intra.c send_request.c get_user_data.c get_token_intra.c
