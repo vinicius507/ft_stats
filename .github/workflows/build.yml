@@ -15,5 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: dependencies
+      run: sudo apt install -y libmbedtls-dev
     - name: make
       run: make
