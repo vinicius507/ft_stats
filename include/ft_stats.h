@@ -14,6 +14,7 @@
 # define FT_STATS_H
 
 # include "mongoose.h"
+# include "mjson.h"
 
 /* API Routes for better performance.
  * `ROUTES` serves for declaring the routes array. */
@@ -42,8 +43,8 @@ enum e_methods
 struct s_request
 {
 	struct mg_str	host;
-	struct mg_str	token;
 	const char		*path;
+	char			token[65];
 };
 
 struct s_api

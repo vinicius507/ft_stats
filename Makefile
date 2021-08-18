@@ -7,7 +7,8 @@ LIBS = -L$(MBEDTLS_DIR) -lmbedtls -lmbedcrypto -lmbedx509
 
 SRC_DIR = ./src
 BUILD_DIR = ./build
-INCLUDES_DIR = ./include ./mongoose /usr/lib/x86_64-linux-gnu/lib/include /usr/include
+INCLUDES_DIR = ./include ./mongoose /usr/lib/x86_64-linux-gnu/lib/include /usr/include \
+			   ./mjson
 
 SRCS = ft_stats.c routes.c api.c handle_request.c redirect.c \
 	   auth_intra.c send_request.c get_user_data.c request_token_intra.c \
@@ -17,13 +18,14 @@ SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
 INCLUDES := $(addprefix -I,$(INCLUDES_DIR))
 
 MONGOOSE = ./mongoose/mongoose.c
+MJSON = ./mjson/mjson.c
 
 RM = rm -f
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) $^ $(MONGOOSE) $(LIBS) -o $@
+$(NAME): $(OBJS) $(MONGOOSE) $(MJSON)
+	$(CC) $(CFLAGS) $(INCLUDES) $^ $(LIBS) -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(BUILD_DIR)

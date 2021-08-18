@@ -25,6 +25,8 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 	else if (ev == MG_EV_HTTP_MSG)
 	{
 		hm = (struct mg_http_message *)ev_data;
+		mjson_get_string(hm->body.ptr, hm->body.len,
+			"$.access_token", &api->req.token[0], 65);
 		c->is_closing = 1;
 	}
 	(void)c;
