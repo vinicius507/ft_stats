@@ -21,6 +21,7 @@ enum e_routes
 {
 	API_V1,
 	API_V1_,
+	API_V1_USER,
 	ROUTES,
 };
 
@@ -38,10 +39,19 @@ enum e_methods
 	METHODS,
 };
 
+struct s_request
+{
+	int				done;
+	struct mg_str	host;
+	struct mg_str	token;
+	const char		*path;
+};
+
 struct s_api
 {
-	 void			(*routes[ROUTES][METHODS])();
-	 struct mg_mgr	mgr;
+	 void				(*routes[ROUTES][METHODS])();
+	 struct mg_mgr		mgr;
+	 struct s_request	req;
 };
 
 /* Initializes the API data structure. */
@@ -61,5 +71,12 @@ void	api_do(struct s_api *api);
 
 /* Redirects to `/api/v1`. */
 void	redirect(struct mg_connection *c, struct mg_http_message *req);
+
+/* Gets OAuth token from École 42 api. */
+void	get_token_intra(struct mg_connection *c, struct s_api *api);
+
+void	auth_intra(struct s_api *api);
+
+void	get_user_data(struct mg_connection *c, struct mg_http_message *req);
 
 #endif

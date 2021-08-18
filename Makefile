@@ -1,12 +1,16 @@
 NAME = ft_stats
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -DMG_ENABLE_MBEDTLS=1
+
+MBEDTLS_DIR = /lib
+LIBS = -L$(MBEDTLS_DIR) -lmbedtls -lmbedcrypto -lmbedx509
 
 SRC_DIR = ./src
 BUILD_DIR = ./build
-INCLUDES_DIR = ./include ./mongoose
+INCLUDES_DIR = ./include ./mongoose /usr/include/mbedtls
 
-SRCS = ft_stats.c routes.c api.c handle_request.c redirect.c
+SRCS = ft_stats.c routes.c api.c handle_request.c redirect.c \
+	   auth_intra.c send_request.c get_user_data.c get_token_intra.c
 OBJS := $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
 INCLUDES := $(addprefix -I,$(INCLUDES_DIR))
@@ -18,7 +22,7 @@ RM = rm -f
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) $^ $(MONGOOSE) -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) $^ $(MONGOOSE) $(LIBS) -o $@
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	mkdir -p $(BUILD_DIR)

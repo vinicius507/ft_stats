@@ -18,6 +18,7 @@ int	main(void)
 
 	api_init(&api);
 	register_route(GET, API_V1_, redirect, &api);
+	register_route(GET, API_V1_USER, get_user_data, &api);
 	api_do(&api);
 	return (0);
 }
