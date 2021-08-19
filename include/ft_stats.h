@@ -15,6 +15,7 @@
 
 # include "mongoose.h"
 # include "mjson.h"
+# include "mongoc/mongoc.h"
 
 /* API Routes for better performance.
  * `ROUTES` serves for declaring the routes array. */
@@ -120,5 +121,8 @@ void	handle_response(struct mg_connection *c, struct mg_http_message *res);
 
 /* Parses user data gotten from intranet. */
 void	parse_user_data(struct s_api *api, struct s_user *user);
+
+/* Sends parsed user data to MongoDB. */
+void	mongo_add(const char *s);
 
 #endif
