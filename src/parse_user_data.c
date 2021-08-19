@@ -21,8 +21,7 @@ static inline void	get_mg_str(struct mg_str *mg_s, struct s_user *user,
 	size_t len, const char *query)
 {
 	bzero(mg_s, sizeof(struct mg_str));
-	if (mjson_find(user->_str, len, query, &mg_s->ptr, (int *)&mg_s->len) <= 0)
-		printf("get_mg_str: F total\n");
+	mjson_find(user->_str, len, query, &mg_s->ptr, (int *)&mg_s->len);
 }
 
 static inline int	get_number(struct s_user *user,
