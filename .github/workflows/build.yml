@@ -16,6 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: dependencies
-      run: sudo apt install -y libmbedtls-dev
+      run:
+        sudo apt install -y libmbedtls-dev
+        sudo apt install -y libmongoc-1.0-0
+        sudo ln -s /usr/include/libmongoc-1.0 /usr/local/include/mongoc
+        sudo ln -s /usr/include/libbson-1.0 /usr/local/include/bson
     - name: make
       run: make

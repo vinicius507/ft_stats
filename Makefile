@@ -3,12 +3,13 @@ CC = clang
 CFLAGS = -Wall -Wextra -Werror -g -DMG_ENABLE_MBEDTLS=1
 
 MBEDTLS_DIR = /usr/lib/x86_64-linux-gnu/lib
-LIBS = -L$(MBEDTLS_DIR) -lmbedtls -lmbedcrypto -lmbedx509
+MBEDTLS_LIBS = -L$(MBEDTLS_DIR) -lmbedtls -lmbedcrypto -lmbedx509
+LIBMONGO = -lbson-1.0 -lmongoc-1.0
+LIBS = $(MBEDTLS_LIBS) $(LIBMONGO)
 
 SRC_DIR = ./src
 BUILD_DIR = ./build
-INCLUDES_DIR = ./include ./mongoose /usr/lib/x86_64-linux-gnu/lib/include /usr/include \
-			   ./mjson
+INCLUDES_DIR = ./include ./mongoose ./mjson
 
 SRCS = ft_stats.c routes.c api.c handle_request.c redirect.c \
 	   auth_intra.c send_request.c get_user_data.c request_token_intra.c \
@@ -41,5 +42,10 @@ re: fclean all
 
 run: re
 	./$(NAME)
+
+install: all
+	cp $(NAME) /usr/local/sbin/$(NAME)
+	cp ./ft_stats.service /etc/systemd/system/ft_stats.service
+	systemctl enable --now ft_stats.service
 
 .PHONY: all clean fclean re
