@@ -68,5 +68,14 @@ Vagrant.configure("2") do |config|
     apt-get install -y libmbedtls-dev
     apt-get install -y clang llvm
     apt-get install -y build-essential libssl-dev libsasl2-dev cmake
+    cd /tmp
+    wget https://github.com/mongodb/mongo-c-driver/releases/download/1.19.0/mongo-c-driver-1.19.0.tar.gz
+    tar -xvzf mongo-c-driver-1.19.0.tar.gz
+    cd mongo-c-driver-1.19.0
+    mkdir cmake-build
+    cd cmake-build
+    cmake -DENABLE_AUTOMATIC_INIT_AND_CLEANUP=OFF ..
+    cmake --build .
+    cmake --build . --target install
   SHELL
 end
