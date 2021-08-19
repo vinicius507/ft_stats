@@ -27,12 +27,12 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 		api->req.done = 1;
 }
 
-void	get_user_data_intra(struct s_api *api, const char *user)
+void	get_user_data_intra(struct s_api *api, const char *query)
 {
 	char	*path;
 
-	path = calloc(strlen(g_base_url) + strlen(user) + 2, sizeof(char));
-	sprintf(path, "%s/%s", g_base_url, user);
+	path = calloc(strlen(g_base_url) + strlen(query) + 2, sizeof(char));
+	sprintf(path, "%s/%s", g_base_url, query);
 	request("GET", path, cb, api);
 	free(path);
 	api->req.path = NULL;

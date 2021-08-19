@@ -55,6 +55,18 @@ struct s_response
 	const char	*body;
 };
 
+struct s_user
+{
+	const char		*_str;
+	int				intra_id;
+	struct mg_str	login;
+	struct mg_str	displayname;
+	int				staff:1;
+	int				finished_projects;
+	double			gpa;
+	double			stardew_coefficient;
+};
+
 struct s_api
 {
 	 void				(*routes[ROUTES][METHODS])();
@@ -105,5 +117,8 @@ void	request(const char *method, const char *url, mg_event_handler_t cb,
 
 /* General response handler. */
 void	handle_response(struct mg_connection *c, struct mg_http_message *res);
+
+/* Parses user data gotten from intranet. */
+void	parse_user_data(struct s_api *api, struct s_user *user);
 
 #endif

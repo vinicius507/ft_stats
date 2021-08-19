@@ -67,5 +67,6 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get install -y libmbedtls-dev
     apt-get install -y clang llvm
+    apt-get install -y build-essential libssl-dev libsasl2-dev cmake
   SHELL
 end
