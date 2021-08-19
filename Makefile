@@ -12,7 +12,7 @@ INCLUDES_DIR = ./include ./mongoose /usr/lib/x86_64-linux-gnu/lib/include /usr/i
 
 SRCS = ft_stats.c routes.c api.c handle_request.c redirect.c \
 	   auth_intra.c send_request.c get_user_data.c request_token_intra.c \
-	   tls.c get_user_data_intra.c
+	   tls.c get_user_data_intra.c handle_response.c
 OBJS := $(addprefix $(BUILD_DIR)/,$(SRCS:.c=.o))
 SRCS := $(addprefix $(SRC_DIR)/,$(SRCS))
 INCLUDES := $(addprefix -I,$(INCLUDES_DIR))

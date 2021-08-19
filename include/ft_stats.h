@@ -99,4 +99,7 @@ void	get_user_data_intra(struct s_api *api, const char *user);
 /* Send an HTTP request. */
 void	send_request(struct mg_connection *c, struct s_api *api);
 
+/* Handles response from the intranet. */
+void	handle_response(struct mg_connection *c, struct mg_http_message *res);
+
 #endif

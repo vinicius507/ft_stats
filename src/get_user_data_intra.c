@@ -16,20 +16,13 @@ static const char	*g_base_url = "https://api.intra.42.fr/v2/users/";
 
 static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 {
-	struct mg_http_message	*hm;
 	struct s_api			*api;
 
 	api = (struct s_api *)fn_data;
 	if (ev == MG_EV_CONNECT)
 		send_request(c, api);
 	else if (ev == MG_EV_HTTP_MSG)
-	{
-		hm = (struct mg_http_message *)ev_data;
-		api->res.status = atoi(hm->uri.ptr);
-		api->res.body = strndup(hm->body.ptr, hm->body.len);
-		c->is_closing = 1;
-		api->req.done = 1;
-	}
+		handle_response(c, (struct mg_http_message *)ev_data);
 	else if (ev == MG_EV_ERROR)
 		api->req.done = 1;
 }
