@@ -38,12 +38,5 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 
 void	auth_intra(struct s_api *api)
 {
-	struct mg_connection	*c;
-
-	api->req.path = g_oauth_url;
-	api->req.host = mg_url_host(g_oauth_url);
-	api->req.done = 0;
-	c = mg_http_connect(&api->mgr, api->req.path, cb, api);
-	while (c && api->req.done == 0)
-		mg_mgr_poll(&api->mgr, 1000);
+	request("GET", g_oauth_url, cb, api);
 }

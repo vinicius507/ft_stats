@@ -12,7 +12,7 @@
 
 #include "ft_stats.h"
 
-static const char	*g_base_url = "https://api.intra.42.fr/v2/users/";
+static const char	*g_base_url = "https://api.intra.42.fr/v2/users";
 
 static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 {
@@ -29,16 +29,11 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 
 void	get_user_data_intra(struct s_api *api, const char *user)
 {
-	struct mg_connection	*c;
+	char	*path;
 
-	api->req.type = "GET";
-	api->req.path = calloc(strlen(g_base_url) + strlen(user) + 1, sizeof(char));
-	sprintf((char *)api->req.path, "%s%s", g_base_url, user);
-	api->req.host = mg_url_host(g_base_url);
-	api->req.done = 0;
-	c = mg_http_connect(&api->mgr, api->req.path, cb, api);
-	while (c && api->req.done == 0)
-		mg_mgr_poll(&api->mgr, 1000);
-	free((char *)api->req.path);
+	path = calloc(strlen(g_base_url) + strlen(user) + 1, sizeof(char));
+	sprintf(path, "%s/%s", g_base_url, user);
+	request("GET", path, cb, api);
+	free(path);
 	api->req.path = NULL;
 }
