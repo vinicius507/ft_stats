@@ -31,7 +31,7 @@ void	get_user_data_intra(struct s_api *api, const char *user)
 {
 	char	*path;
 
-	path = calloc(strlen(g_base_url) + strlen(user) + 1, sizeof(char));
+	path = calloc(strlen(g_base_url) + strlen(user) + 2, sizeof(char));
 	sprintf(path, "%s/%s", g_base_url, user);
 	request("GET", path, cb, api);
 	free(path);

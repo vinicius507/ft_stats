@@ -24,6 +24,7 @@ void	send_request(struct mg_connection *c, struct s_api *api)
 		(int)api->req.host.len, api->req.host.ptr,
 		api->req.access_token
 		);
+	printf("REQUEST:\n%.*s\n", (int)c->send.len, c->send.buf);
 	if (api->req.body == NULL)
 	{
 		mg_printf(c, "\r\n");
