@@ -26,7 +26,7 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 	{
 		hm = (struct mg_http_message *)ev_data;
 		mjson_get_string(hm->body.ptr, hm->body.len,
-			 "$.access_token", &api->req.access_token[0], 65);
+			 "$.access_token", api->req.access_token, 65);
 		c->is_closing = 1;
 		api->req.done = 1;
 	}

@@ -20,7 +20,6 @@
  * `ROUTES` serves for declaring the routes array. */
 enum e_routes
 {
-	API_V1,
 	API_V1_,
 	API_V1_USER,
 	ROUTES,
@@ -50,11 +49,18 @@ struct s_request
 	char			access_token[65];
 };
 
+struct s_response
+{
+	int			status;
+	const char	*body;
+};
+
 struct s_api
 {
 	 void				(*routes[ROUTES][METHODS])();
 	 struct mg_mgr		mgr;
 	 struct s_request	req;
+	 struct s_response	res;
 };
 
 /* Initializes the API data structure. */

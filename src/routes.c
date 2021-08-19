@@ -19,9 +19,7 @@ inline void	register_route(int method, int id, void (*cb)(), struct s_api *api)
 
 int	get_route_id(struct mg_http_message *req)
 {
-	if (mg_http_match_uri(req, "/api/v1"))
-		return (API_V1);
-	else if (mg_http_match_uri(req, "/api/v1/"))
+	if (mg_http_match_uri(req, "/api/v1/"))
 		return (API_V1_);
 	else if (mg_http_match_uri(req, "/api/v1/*"))
 		return (API_V1_USER);

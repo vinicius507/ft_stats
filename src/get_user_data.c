@@ -26,6 +26,15 @@ void	get_user_data(struct mg_connection *c, struct mg_http_message *req)
 	}
 	user = strndup(req->uri.ptr + 8, req->uri.len - 8);
 	get_user_data_intra(api, user);
+	if (api->res.status == 200)
+		mg_http_reply(c, 200, "", "%s", api->res.body);
+	else if (api->res.status == 404)
+		mg_http_reply(c, 404, "", "{}");
+	else if (api->res.status == 500)
+		mg_http_reply(c, 500, "", "");
+	else
+		mg_http_reply(c, 400, "", api->res.body);
 	free(user);
-	mg_http_reply(c, 200, "", "");
+	free((void *)api->res.body);
+	api->res.body = NULL;
 }
