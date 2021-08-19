@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stats.c                                         :+:      :+:    :+:   */
+/*   handle_response.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vgocalv <vgocalv@student.42sp.org.br>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/16 21:27:19 by vgocalv           #+#    #+#             */
-/*   Updated: 2021/08/16 21:27:19 by vgocalv          ###   ########.fr       */
+/*   Created: 2021/08/19 10:38:21 by vgocalv           #+#    #+#             */
+/*   Updated: 2021/08/19 10:38:21 by vgocalv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_stats.h"
 
-int	main(void)
+void	handle_response(struct mg_connection *c, struct mg_http_message *res)
 {
-	struct s_api	api;
+	struct s_api	*api;
 
-	api_init(&api);
-	register_route(GET, API_V1_, redirect, &api);
-	register_route(GET, API_V1_USER, get_user_data, &api);
-	api_do(&api);
-	return (0);
+	api = (struct s_api *)c->fn_data;
+	api->res.status = atoi(res->uri.ptr);
+	if (res->body.len > 0 && res->body.ptr != NULL)
+		api->res.body = strndup(res->body.ptr, res->body.len);
+	c->is_closing = 1;
+	api->req.done = 1;
 }

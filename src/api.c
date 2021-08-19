@@ -14,6 +14,8 @@
 
 void	api_init(struct s_api *api)
 {
+	bzero(&api->req, sizeof(api->req));
+	bzero(&api->res, sizeof(api->res));
 	bzero(api->routes, sizeof(api->routes));
 }
 
@@ -21,7 +23,6 @@ static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)
 {
 	if (ev == MG_EV_HTTP_MSG)
 		handle_request(c, (struct mg_http_message *)ev_data);
-	(void)c;
 	(void)fn_data;
 }
 
