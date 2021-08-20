@@ -17,6 +17,7 @@ void	api_init(struct s_api *api)
 	bzero(&api->req, sizeof(api->req));
 	bzero(&api->res, sizeof(api->res));
 	bzero(api->routes, sizeof(api->routes));
+	mongoc_init();
 }
 
 static void	cb(struct mg_connection *c, int ev, void *ev_data, void *fn_data)

@@ -20,7 +20,6 @@ void	mongo_add(const char *s)
 	bson_error_t		error;
 	bson_t				*bson;
 
-	mongoc_init();
 	client = mongoc_client_new(
 			"mongodb+srv://ftstats:ftstats@cluster0.fppou.mongodb.net/"
 			"users?retryWrites=true&w=majority"
@@ -34,5 +33,4 @@ void	mongo_add(const char *s)
 	mongoc_collection_destroy(collection);
 	mongoc_database_destroy(database);
 	mongoc_client_destroy(client);
-	mongoc_cleanup();
 }

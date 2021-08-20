@@ -16,6 +16,7 @@ static struct s_api	*g_api = NULL;
 
 static void	_sig_term_handler(int signum)
 {
+	mongoc_cleanup();
 	mg_mgr_free(&g_api->mgr);
 	exit(EXIT_SUCCESS);
 	(void)signum;
