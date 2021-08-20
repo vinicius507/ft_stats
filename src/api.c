@@ -33,5 +33,4 @@ void	api_do(struct s_api *api)
 	mg_http_listen(&api->mgr, "http://0.0.0.0:4242", cb, api);
 	while (1)
 		mg_mgr_poll(&api->mgr, 1000);
-	mg_mgr_free(&api->mgr);
 }

@@ -13,6 +13,9 @@
 #ifndef FT_STATS_H
 # define FT_STATS_H
 
+# include <stdio.h>
+# include <stdlib.h>
+# include <signal.h>
 # include "mongoose.h"
 # include "mjson.h"
 # include "mongoc/mongoc.h"
@@ -62,7 +65,7 @@ struct s_user
 	int				intra_id;
 	struct mg_str	login;
 	struct mg_str	displayname;
-	int				staff;
+	unsigned int	staff:1;
 	int				finished_projects;
 	double			gpa;
 	double			stardew_coefficient;
