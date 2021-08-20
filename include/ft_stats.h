@@ -62,7 +62,7 @@ struct s_user
 	int				intra_id;
 	struct mg_str	login;
 	struct mg_str	displayname;
-	int				staff:1;
+	int				staff;
 	int				finished_projects;
 	double			gpa;
 	double			stardew_coefficient;

@@ -65,7 +65,8 @@ static inline void	get_projects_data(struct s_user *user, size_t len)
 		snprintf(query, 36, g_queries[4], i);
 		ret = mjson_find(user->_str, len, query, &s, &n);
 	}
-	user->gpa /= user->finished_projects;
+	if (user->finished_projects)
+		user->gpa /= user->finished_projects;
 }
 
 void	parse_user_data(struct s_api *api, struct s_user *user)
