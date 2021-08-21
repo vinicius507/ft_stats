@@ -23,10 +23,7 @@ void	request_token_intra(struct mg_connection *c, struct s_api *api)
 		(int)api->req.host.len,
 		api->req.host.ptr
 		);
-	mg_http_bauth(c,
-		"21c57e8b841b42c2f01f55cfe6d3d1a4fc52ee692043e78b4d155b2b191e32d8",
-		getenv("CLIENT_SECRET")
-		);
+	mg_http_bauth(c, getenv("CLIENT_ID"), getenv("CLIENT_SECRET"));
 	mg_printf(c, "Content-Length: 29\r\n");
 	mg_printf(c, "\r\n");
 	mg_printf(c, "grant_type=client_credentials\r\n");
