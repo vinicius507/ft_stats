@@ -24,8 +24,8 @@ void	request_token_intra(struct mg_connection *c, struct s_api *api)
 		api->req.host.ptr
 		);
 	mg_http_bauth(c,
-		"cb8657e14837d297cc833ef943b48d1d988b6aa77eeac25db196c56c6048ee83",
-		"21c57e8b841b42c2f01f55cfe6d3d1a4fc52ee692043e78b4d155b2b191e32d8"
+		"21c57e8b841b42c2f01f55cfe6d3d1a4fc52ee692043e78b4d155b2b191e32d8",
+		getenv("CLIENT_SECRET")
 		);
 	mg_printf(c, "Content-Length: 29\r\n");
 	mg_printf(c, "\r\n");

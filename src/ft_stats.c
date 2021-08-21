@@ -20,5 +20,5 @@ int	main(void)
 	register_route(GET, API_V1_, redirect, &api);
 	register_route(GET, API_V1_USER, get_user_data, &api);
 	api_do(&api);
-	return (0);
+	return (EXIT_SUCCESS);
 }

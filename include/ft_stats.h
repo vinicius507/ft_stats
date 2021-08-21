@@ -13,8 +13,12 @@
 #ifndef FT_STATS_H
 # define FT_STATS_H
 
+# include <stdio.h>
+# include <stdlib.h>
+# include <signal.h>
 # include "mongoose.h"
 # include "mjson.h"
+# include "mongoc/mongoc.h"
 
 /* API Routes for better performance.
  * `ROUTES` serves for declaring the routes array. */
@@ -61,7 +65,7 @@ struct s_user
 	int				intra_id;
 	struct mg_str	login;
 	struct mg_str	displayname;
-	int				staff:1;
+	unsigned int	staff:1;
 	int				finished_projects;
 	double			gpa;
 	double			stardew_coefficient;
@@ -120,5 +124,8 @@ void	handle_response(struct mg_connection *c, struct mg_http_message *res);
 
 /* Parses user data gotten from intranet. */
 void	parse_user_data(struct s_api *api, struct s_user *user);
+
+/* Sends parsed user data to MongoDB. */
+void	db_add(const char *s, struct mg_str login);
 
 #endif

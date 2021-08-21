@@ -1,0 +1,9 @@
+[Unit]
+Description=42Stats REST API
+
+[Service]
+ExecStart=/usr/local/sbin/ft_stats
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

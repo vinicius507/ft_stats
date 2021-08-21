@@ -12,13 +12,34 @@
 
 #include "ft_stats.h"
 
+static const char	*g_bool[2] = {"false", "true"};
+
 static void	handle_ok(struct mg_connection *c, struct s_user *user)
 {
 	struct s_api	*api;
+	const char		*json_str;
 
 	api = (struct s_api *)c->fn_data;
 	parse_user_data(api, user);
-	mg_http_reply(c, 200, "", "%s", api->res.body);
+	mg_http_reply(c, 200, "", "{"
+		"\"intra_id\": %d,"
+		"\"login\": %.*s,"
+		"\"name\": %.*s,"
+		"\"staff\": %s,"
+		"\"finished_projects\": %d,"
+		"\"gpa\": %.2f,"
+		"\"stardew_coefficient\": %.2f"
+		"}",
+		user->intra_id,
+		(int)user->login.len, user->login.ptr,
+		(int)user->displayname.len, user->displayname.ptr,
+		g_bool[user->staff], user->finished_projects, user->gpa
+		);
+	json_str = strchr((const char *)c->send.buf, '{');
+	json_str = strndup(json_str,
+			c->send.len - ((size_t)json_str - (size_t)c->send.buf));
+	db_add(json_str, user->login);
+	free((char *)json_str);
 	free((void *)user->_str);
 }
 
