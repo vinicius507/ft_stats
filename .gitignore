@@ -1,3 +1,5 @@
 build/*
 .cache/*
 ft_stats
+.vagrant/
+tests/__pycache__/*
