@@ -38,7 +38,7 @@ static void	handle_ok(struct mg_connection *c, struct s_user *user)
 	json_str = strchr((const char *)c->send.buf, '{');
 	json_str = strndup(json_str,
 			c->send.len - ((size_t)json_str - (size_t)c->send.buf));
-	mongo_add(json_str);
+	db_add(json_str, user->login);
 	free((char *)json_str);
 	free((void *)user->_str);
 }

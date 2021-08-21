@@ -126,6 +126,6 @@ void	handle_response(struct mg_connection *c, struct mg_http_message *res);
 void	parse_user_data(struct s_api *api, struct s_user *user);
 
 /* Sends parsed user data to MongoDB. */
-void	mongo_add(const char *s);
+void	db_add(const char *s, struct mg_str login);
 
 #endif
