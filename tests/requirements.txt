@@ -1,6 +1,4 @@
-sys
-signal
+pytest
 requests
-subprocess
-time
 json
+jsonschema
