@@ -3,6 +3,7 @@ Description=42Stats REST API
 
 [Service]
 ExecStart=/usr/local/sbin/ft_stats
+EnvironmentFile=/etc/ft_stats-env
 Restart=always
 
 [Install]

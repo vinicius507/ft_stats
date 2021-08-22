@@ -47,6 +47,7 @@ run: re
 install: all
 	cp $(NAME) /usr/local/sbin/$(NAME)
 	cp ./ft_stats.service /etc/systemd/system/ft_stats.service
+	cp ./.env /etc/ft_stats-env
 	systemctl enable --now ft_stats.service
 
 .PHONY: all clean fclean re
