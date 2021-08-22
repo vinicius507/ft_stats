@@ -66,8 +66,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get install -y libmbedtls-dev
-    apt-get install -y clang llvm
-    apt-get install -y build-essential libssl-dev libsasl2-dev cmake
+    apt-get install -y clang
     apt-get install -y libmongoc-1.0-0 libmongoc-dev
     mkdir -p /usr/local/include/
     ln -s /usr/include/libmongoc-1.0 /usr/local/include/mongoc
