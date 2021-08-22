@@ -3,49 +3,94 @@
 ![Build](https://github.com/42sp/42labs-selection-process-vinicius507/actions/workflows/build.yml/badge.svg)
 ![Norminette](https://github.com/42sp/42labs-selection-process-vinicius507/actions/workflows/norminette.yml/badge.svg)
 
-A sua tarefa é construir uma API com conexão de banco de dados para uma aplicação de análise estatística de alunos. A aplicação deverá receber `Intra login` e retornar o máximo de informações e análises que você julgue como úteis de uma forma legível e de fácil processamento. Essas informações devem ser buscadas através da [API oficial da Intra](https://api.intra.42.fr/), persistidas em um banco de dados e atualizadas após cada nova requisição.
+API Reference
+---
 
-Os dados devem ser mantidos e utilizados para gerar análises de performance dos alunos. Exemplos: projetos concluídos, tempo gasto por projeto, etc.
+### Overview
 
-**A aplicação deverá ser construída utilizando C.**
+The 42Stats API v1 is responsable for giving stats on École 42 Students.
 
-Quaisquer banco de dados, bibliotecas e ferramentas são permitidas. 
+### HTPP Reference
 
-## **O que será avaliado**
+- URL: `/v1/{INTRA_LOGIN}`
 
-Queremos avaliar sua capacidade de desenvolver e documentar um back-end para uma aplicação. Serão avaliados:
+- Method: `GET`
 
-- Código bem escrito e limpo;
-- Quais ferramentas foram usadas, como e por quê;
-- Sua criatividade e capacidade de lidar com problemas diferentes e abstratos;
-- Sua capacidade de se comprometer com o que foi fornecido;
-- Sua capacidade de documentação da sua aplicação.
+- Success Response:
+	- Code: `200`
+	- Content:
+	```json
+		{
+			"intra_id": 86692,
+			"login": "vgoncalv",
+			"name": "Vinícius Gonçalves De Oliveira",
+			"staff": false,
+			"finished_projects": 24,
+			"gpa": 99.21,
+			"stardew_coefficient": 0.61
+		}
+	```
 
-## **O mínimo necessário**
+### Extending the API
 
-- [README.md](http://readme.md) com documentação contendo informações do projeto;
+The API is coded in a way to easily add and/or modify endpoints.
 
-## **Bônus**
+The following `enum` serves for referencing registered routes:
 
-Os seguintes itens não são obrigatórios, mas darão mais valor ao seu trabalho. Os destacados são mais significativos para nós.
+```c
+enum e_routes
+{
+	API_V1_,
+	API_V1_USER,
+	ROUTES,
+};
 
-- **Testes**;
-- **Conteinerização da aplicação**;
-- **Autenticação e autorização** (**OAuth, JWT**);
-- Uso de ferramentas externas que facilitem o seu trabalho (Miro, Trello, etc.);
-- Cuidados especiais com otimização, padrões, entre outros;
-- Migrations ou script para configuração do banco de dados;
-- CronJobs;
-- Rota para plotagem de gráficos;
-- Manifestos K8s;
-- Pipelines de CI;
-- Utilização de algum serviço de computação na nuvem (AWS, GCP, Azure, etc.);
+```
 
-## **Critérios de Aceitação**
+By adding another `enum` value before the value `ROUTES`, you can
+register a new endpoint for the API using:
 
-- Você deverá utilizar a API oficial da intra: [api.intra.42.fr](https://api.intra.42.fr/)
-- Deve haver uma documentação descrevendo sua API;
+```c
+	register_route(GET, API_V1_, redirect, &api);
+	register_route(GET, API_V1_USER, get_user_data, &api);
+```
 
-## **Formato de entrega**
+Where `redirect` and `get_user_data` are the callbacks for the
+endpoint.
 
-Seu código deverá ser submetido neste repositório, sinta-se livre pare substituir este README.md com o seu próprio.
+Usage
+---
+
+### Docker
+
+```bash
+docker build -t vgoncalv/ft_stats:0.2
+docker run -t -p 4242:4242 vgoncalv/ft_stats:0.2
+```
+
+### Vagrant
+
+To run it with Vagrant you need the plugin `vagrant-vbguest`.
+
+```bash
+vagrant up
+```
+
+### Manual Installation as Systemd service
+
+First you need to install the dependencies:
+
+```bash
+sudo apt update
+sudo apt install libmbedtls-dev \
+		clang \
+		make \
+		libmongoc-1.0-0 \
+		libmongoc-dev
+```
+
+Then run:
+
+```bash
+sudo make install
+```
