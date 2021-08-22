@@ -61,11 +61,20 @@ endpoint.
 Usage
 ---
 
+You need to place your Intranet v2 Application `CLIENT-ID` and `SECRET`,
+alongside with MongoDB `DB_ADDRESS` in  a `.env` file.
+
+```env
+DB_ADDRESS=YOUR_MONGODB_CONNECTION_STRING
+CLIENT_ID=YOUR_INTRANET_APPLICATION_UID
+CLIENT_SECRET=YOUR_INTRANET_APPLICATION_SECRET
+```
+
 ### Docker
 
 ```bash
 docker build -t vgoncalv/ft_stats:0.2
-docker run -t -p 4242:4242 vgoncalv/ft_stats:0.2
+docker run -t -p 4242:4242 --env-file .env vgoncalv/ft_stats:0.2
 ```
 
 ### Vagrant
