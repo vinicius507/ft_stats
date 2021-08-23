@@ -10,7 +10,7 @@ API Reference
 
 The 42Stats API v1 is responsable for giving stats on École 42 Students.
 
-### HTPP Reference
+### HTTP Reference
 
 - URL: `/v1/{INTRA_LOGIN}`
 
