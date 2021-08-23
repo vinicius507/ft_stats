@@ -1,2 +1,10 @@
 .*
 build/*
+compile_commands.json
+ft_stats
+LICENSE
+mongoose/LICENSE
+mjson/LICENSE
+tests/*
+VagrantFile
+ft_stats.service
