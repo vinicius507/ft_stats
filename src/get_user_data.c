@@ -21,7 +21,7 @@ static void	handle_ok(struct mg_connection *c, struct s_user *user)
 
 	api = (struct s_api *)c->fn_data;
 	parse_user_data(api, user);
-	mg_http_reply(c, 200, "", "{"
+	mg_http_reply(c, 200, "Content-Type: application/json\r\n", "{"
 		"\"intra_id\": %d,"
 		"\"login\": %.*s,"
 		"\"name\": %.*s,"

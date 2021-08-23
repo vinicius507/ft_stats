@@ -36,7 +36,7 @@ def test_get_intra_users_validates_json_response_schema(intra_login):
     assert response.status_code == 200
 
     # Validate response content type header
-    # assert response.headers["Content-Type"] == "application/json"
+    assert response.headers["Content-Type"] == "application/json"
 
     # Validate will raise exception if given json is not what is described in
     # schema.
