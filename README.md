@@ -1,10 +1,23 @@
 # Processo Seletivo 42 São Paulo: 42Labs
 
+This project was made for École 42 São Paulo Labs. Its aim was to create an API
+in C for parsing data from the Intranet users.
+
+Core concepts learned in this project:
+
+1. How HTTP requests/responses work.
+2. What exactly is an API and its inner workings.
+3. How to make API integration tests.
+4. How to create Docker/Vagrant containers and when/how to use them.
+5. Continuous Integration philosophy.
+
 ![Build](https://github.com/42sp/42labs-selection-process-vinicius507/actions/workflows/build.yml/badge.svg)
 ![Norminette](https://github.com/42sp/42labs-selection-process-vinicius507/actions/workflows/norminette.yml/badge.svg)
 
 API Reference
 ---
+
+> To run the application you need to register an Intranet v2 Application at [intra](https://intra.42.fr/)
 
 ### Overview
 
